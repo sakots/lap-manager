@@ -94,7 +94,7 @@
   width: 100%;
 }
 
-.page-input input[type="number"] {
+.page-input input[type="text"] {
   width: 70px;
   height: 28px;
   padding: 0.25rem 0.5rem;

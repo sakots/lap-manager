@@ -4,7 +4,7 @@ import './App.css'
 interface PageInput {
   id: number;
   name: string;
-  pageCount: number;
+  pageCount: string;
   readingChecks: boolean[];
 }
 
@@ -22,7 +22,7 @@ function App() {
       }
     }
     // デフォルトの状態を返す
-    return [{ id: 1, name: '入力1', pageCount: 0, readingChecks: [false] }];
+    return [{ id: 1, name: '入力1', pageCount: '', readingChecks: [false] }];
   });
 
   // 状態が変更されるたびにローカルストレージに保存
@@ -45,7 +45,7 @@ function App() {
     }));
   };
 
-  const handlePageCountChange = (id: number, value: number) => {
+  const handlePageCountChange = (id: number, value: string) => {
     setPageInputs(pageInputs.map(input => 
       input.id === id ? { ...input, pageCount: value } : input
     ));
@@ -56,7 +56,7 @@ function App() {
     setPageInputs([...pageInputs, { 
       id: newId, 
       name: `入力${newId}`, 
-      pageCount: 0,
+      pageCount: '',
       readingChecks: [false]
     }]);
   };
@@ -70,7 +70,7 @@ function App() {
   const resetState = () => {
     if (window.confirm('すべてのデータをリセットしますか？')) {
       localStorage.removeItem(STORAGE_KEY);
-      setPageInputs([{ id: 1, name: '入力1', pageCount: 0, readingChecks: [false] }]);
+      setPageInputs([{ id: 1, name: '入力1', pageCount: '', readingChecks: [false] }]);
     }
   };
 
@@ -90,10 +90,10 @@ function App() {
                 <label>
                   ●
                   <input
-                    type="number"
+                    type="text"
                     value={input.pageCount}
-                    onChange={(e) => handlePageCountChange(input.id, Number(e.target.value))}
-                    min="0"
+                    onChange={(e) => handlePageCountChange(input.id, e.target.value)}
+                    placeholder="ページ数"
                   />
                   {pageInputs.length > 1 && (
                     <button
